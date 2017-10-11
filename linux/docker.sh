@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-sudo apt-get -y install \
+sudo apt install -y \
   apt-transport-https \
   ca-certificates \
   curl \
@@ -15,6 +15,12 @@ sudo add-apt-repository \
        $(lsb_release -cs) \
        stable"
 
-sudo apt-get update
+sudo apt update
 
-sudo apt-get -y install docker-ce
+sudo apt -y install docker-ce
+
+# 当前用户加入 docker 用户组
+sudo usermod -aG docker $USER
+
+# daocloud 加速器
+curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://7b2a7798.m.daocloud.io
